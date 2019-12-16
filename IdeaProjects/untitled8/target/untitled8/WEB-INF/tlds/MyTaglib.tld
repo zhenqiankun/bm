@@ -1,0 +1,22 @@
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>my</short-name>
+<!--		<display-name>My Tag</display-name>-->
+<!--    <description>Custom Tag library</description>-->
+    <uri>/mytag</uri>
+
+
+    <tag>
+        <name>greet</name>
+        <tag-class>Tag.GreetTag</tag-class>
+        <body-content>JSP</body-content>
+    </tag>
+
+
+
+
+</taglib>

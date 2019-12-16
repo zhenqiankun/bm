@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c3p0-config>
+    <default-config>
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jian</property>
+        <property name="user">root</property>
+        <property name="password">zhou</property>
+
+<!--    连接池扩展性配置    -->
+<!--    所有连接用完了 应用程序等待程序连接的时间    -->
+        <Property name="checkoutTimeOut">2000</Property>
+<!--    配置连接池里面的初始化连接   默认3个 -->
+        <Property name="initialPoolSize">10</Property>
+<!--        连接池连接消耗尽的时候c3p0可以一次获取的连接处    3-->
+        <Property name="acquireIncrement">5</Property>
+<!--        连接池中最小保留连接数-->
+        <Property name="minPoolSize">5</Property>
+<!--        连接池中最大连接数-->
+        <Property name="maxPoolSize">20</Property>
+
+    </default-config>
+
+<!--   c3p0对于并发的问题  处理比 dbcp连接池效果要好    DBCP 有点不稳定 -->
+
+
+
+    <!-- 加载指定 连接方式 -->
+    <name-config name="lgt">
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jian</property>
+        <property name="user">root</property>
+        <property name="password">zhou</property>
+    </name-config>
+
+
+</c3p0-config>

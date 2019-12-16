@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>系统登录 - 半圆账单管理系统</title>
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+</head>
+<body class="blue-style">
+<div id="login">
+    <div class="icon"></div>
+    <div class="login-box">
+        <form>
+            <dl>
+                <dt>用户名：</dt>
+                <dd><input type="text" name="userName" class="input-text"/></dd>
+                <dt>密　码：</dt>
+                <dd><input type="password" name="passWord" class="input-text"/></dd>
+            </dl>
+            <div class="buttons">
+                <input type="button" name="button" value="登录系统" class="input-button" onclick="f()"/>
+                <input type="reset" name="reset" value="重　　填" class="input-button"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function f() {
+        var username=$("input[name='userName']").val();
+        var password=$("input[name='passWord']").val();
+        $.ajax({
+            url:"loginuser",
+            data:{"username":username,"password":password},
+            type:"POST",
+            success:function (data) {
+                if(data==1){
+                    window.location.href="left";
+                }
+                else {
+                    alert("用户名或者密码错误");
+                }
+
+            }
+
+        });
+    }
+</script>
+</body>
+</html>
