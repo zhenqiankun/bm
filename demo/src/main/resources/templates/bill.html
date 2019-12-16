@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Insert title here</title>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <script src="/jquery-3.4.1.js"></script>
+    <style>
+        #temp {
+            display: none;
+        }
+        body{
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="menu">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <form >
+                    <input name="flag" value="search" class="input-text" type="hidden">
+                    货物名：<input name="userName" class="input-text" type="text">&nbsp;&nbsp;&nbsp;&nbsp; <input
+                        value="查 询" type="button" onclick="oc()">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="main">
+
+    <div class="content">
+        <table class="list" id="tableg">
+            <tbody id="userlist">
+            <tr>
+                <td width="70" height="29">
+                    <div class="STYLE1" align="center">编号</div>
+                </td>
+                <td width="80">
+                    <div class="STYLE1" align="center">货品名</div>
+                </td>
+                <td width="100">
+                    <div class="STYLE1" align="center">价格</div>
+                </td>
+                <td width="100">
+                    <div class="STYLE1" align="center">数量</div>
+                </td>
+                <td width="150">
+                    <div class="STYLE1" align="center">供应商</div>
+                </td>
+                <td width="150">
+                    <div class="STYLE1" align="center">是否删除</div>
+                </td>
+            </tr>
+
+            <tr id="temp">
+                <td height="23"><span class="STYLE1">1</span></td>
+                <td><span class="STYLE1"></span></td>
+                <td><span class="STYLE1"></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span class="STYLE1"></span></td>
+                <td><span class="STYLE1"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+<script>
+    function oc(){
+        var name=$("input[name='userName']").val();
+        $.ajax({
+            url:"selectbill",
+            data:{"name":name},
+            type:"post",
+            success:function (data) {
+                if(data.length==0){
+                    alert("查不到");
+                }
+                else {
+                    for(var i=0;i<data.length;i++)
+                    {
+                        var tr = '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>>' + '<td>' + data[i].price + '</td>' + '<td>' + data[i].number + '</td>' + '<td>' + data[i].own + '</td>' + '<td><input type="button" onclick="pl(\'' + data[i].id + '\')"></td></tr>';
+                    }
+                    $("#tableg tbody").append(tr);
+                }
+            }
+        });
+    }
+    function pl(id){
+        alert(id);
+        $.ajax({
+            url:"delectbill",
+            data:{"id": id},
+            type:"post",
+            succsee:function (data) {
+
+            }
+
+        });
+    }
+    $(function () {
+        console.log("右侧区域加载完毕");
+        var user = {}
+        $.ajax("loadUsr", {
+            type: "post",
+            contentType: "application/json;charset:utf-8;",
+            data: JSON.stringify(user),
+            dataType: "json",
+            success: function (rs) {
+                console.log("加载成功后的回调函数", rs);
+                //接受查询的结果json数组，分别插入到表格中
+                rs.forEach((el) => {
+                    console.log(el);
+                    addNewRow(el);
+                })
+
+            },
+            error: function () {
+
+                console.log("加载失败后的回调函数");
+            }
+        })
+
+    })
+
+    function addNewRow(jsonRs) {
+        //解析成json对象
+        // var jsonRs = JSON.parse(o);
+        //clone一个表格的模版
+        var newRow = $("#temp").clone(true);
+        newRow.removeAttr("id");
+        //组装新的行
+        newRow.children().eq(0).text(jsonRs.userid);
+        newRow.children().eq(1).text(jsonRs.name);
+        newRow.children().eq(2).text(jsonRs.sex);
+        newRow.children().eq(3).text(jsonRs.age);
+        newRow.children().eq(4).text(jsonRs.phone);
+        newRow.children().eq(5).text(jsonRs.address);
+        newRow.children().eq(6).text(jsonRs.authority);
+
+        $("#userlist").append(newRow);
+
+
+    }
+
+</script>
+</html>
