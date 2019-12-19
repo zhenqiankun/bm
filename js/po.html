@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.4.1.js" ></script>
+</head>
+<body>
+<script>
+
+    var student1={name:"张三",age:12};
+    var student2={name:"李四",age:14};
+    var student3={name:"王二",age:10};
+    var student4={name:"张一三",age:19};
+    var student5={name:"王五",age:13};
+    var sorty=new Array();
+    sorty[0]=student1;
+    sorty[1]=student2;
+    sorty[2]=student3;
+    sorty[3]=student4;
+    sorty[4]=student5;
+    sorty.sort(function (a,b) {
+        return a.age-b.age;
+    })
+    console.log(sorty);
+
+</script>
+</body>
+</html>
